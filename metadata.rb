@@ -10,7 +10,9 @@ version '1.0.0'
   supports os
 end
 
-depends 'php'
+%w( php git ).each do |cbook|
+  depends cbook
+end
 
 recommends 'windows'
 
