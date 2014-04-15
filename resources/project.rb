@@ -8,7 +8,7 @@
 actions :install, :update, :dump_autoload, :create_project
 default_action :install
 
-attribute :project, :kind_of => String, :name_attribute => true
+attribute :project, :kind_of => String
 attribute :project_dir, :kind_of => String, :name_attribute => true
 attribute :dev, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :quiet, :kind_of => [TrueClass, FalseClass], :default => true
