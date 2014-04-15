@@ -32,7 +32,7 @@ action :create_project do
 
   execute 'create-project' do
     cwd new_resource.project_dir
-    command "#{node['composer']['bin']} create-project #{new_resource.package} --no-interaction --no-ansi #{quiet} #{dev}"
+    command "#{node['composer']['bin']} create-project #{new_resource.package_name} --no-interaction --no-ansi #{quiet} #{dev}"
     action :run
     only_if { !File::exists?("#{new_resource.project_dir}/composer.json") }
   end
