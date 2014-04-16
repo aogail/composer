@@ -6,6 +6,7 @@
 #
 
 include_recipe node['composer']['php_recipe']
+include_recipe 'git::default'
 
 if node['platform'] == 'windows'
   windows_package 'Composer - PHP Dependency Manager' do
