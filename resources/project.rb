@@ -9,6 +9,8 @@ actions :install, :update, :dump_autoload, :create_project
 default_action :install
 
 attribute :package_name, :kind_of => String
+attribute :user, :kind_of => String, :default => 'root'
+attribute :group, :kind_of => String, :default => 'root'
 attribute :project_dir, :kind_of => String, :name_attribute => true
 attribute :dev, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :quiet, :kind_of => [TrueClass, FalseClass], :default => true
