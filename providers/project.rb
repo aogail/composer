@@ -31,7 +31,7 @@ action :create_project do
   quiet = new_resource.quiet ? '--quiet' : ''
 
   execute 'create-project' do
-    user new_resource.owner
+    user new_resource.user
     group new_resource.group
     command "#{node['composer']['bin']} create-project #{new_resource.package_name} --no-interaction --no-ansi #{quiet} #{dev} #{new_resource.project_dir}"
     action :run
