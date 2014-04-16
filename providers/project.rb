@@ -31,8 +31,8 @@ action :create_project do
   quiet = new_resource.quiet ? '--quiet' : ''
 
   execute 'create-project' do
-    cwd new_resource.project_dir
-    command "#{node['composer']['bin']} create-project #{new_resource.package_name} --no-interaction --no-ansi #{quiet} #{dev}"
+    #cwd new_resource.project_dir
+    command "#{node['composer']['bin']} create-project #{new_resource.package_name} --no-interaction --no-ansi #{quiet} #{dev} #{new_resource.project_dir}"
     action :run
     not_if { ::File.exists?("#{new_resource.project_dir}/composer.json") }
   end
