@@ -36,6 +36,8 @@ action :create_project do
     action :run
     only_if { !File::exists?("#{new_resource.project_dir}/composer.json") }
   end
+
+  new_resource.updated_by_last_action(true)
 end
 
 action :update do
