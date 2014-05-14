@@ -29,11 +29,12 @@ end
 action :create_project do
   dev = new_resource.dev ? '--dev' : '--no-dev'
   quiet = new_resource.quiet ? '--quiet' : ''
+  version = new_resource.version ? new_resource.version : ''
 
   execute 'create-project' do
     user new_resource.user
     group new_resource.group
-    command "#{node['composer']['bin']} create-project #{new_resource.package_name} --no-interaction --no-ansi #{quiet} #{dev} #{new_resource.project_dir}"
+    command "#{node['composer']['bin']} create-project #{new_resource.package_name} --no-interaction --no-ansi #{quiet} #{dev} #{new_resource.project_dir} #{version}"
     action :run
     not_if { ::File.exists?("#{new_resource.project_dir}/composer.json") }
   end
