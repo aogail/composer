@@ -2,22 +2,24 @@
 # Cookbook Name:: composer
 # Resource:: project
 #
-# Copyright 2012-2014, Escape Studios
+# Copyright (c) 2016, David Joos
 #
 
-actions :install, :update, :dump_autoload, :create_project
+actions :install, :single, :require, :update, :dump_autoload, :remove, :create_project
 default_action :install
 
 attribute :package_name, :kind_of => String
-attribute :user, :kind_of => String, :default => 'root'
-attribute :group, :kind_of => String, :default => 'root'
 attribute :project_dir, :kind_of => String, :name_attribute => true
+attribute :vendor, :kind_of => String, :default => nil
+attribute :package, :kind_of => String, :default => nil
+attribute :version, :kind_of => String, :default => nil
 attribute :dev, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :quiet, :kind_of => [TrueClass, FalseClass], :default => true
 attribute :optimize_autoloader, :kind_of => [TrueClass, FalseClass], :default => false
-attribute :version, :kind_of => String
-
-def initialize(*args)
-  super
-  @action = :install
-end
+attribute :prefer_dist, :kind_of => [TrueClass, FalseClass], :default => false
+attribute :prefer_source, :kind_of => [TrueClass, FalseClass], :default => false
+attribute :bin_dir, :kind_of => String, :default => 'vendor/bin'
+attribute :user, :kind_of => String, :default => 'root'
+attribute :group, :kind_of => String, :default => 'root'
+attribute :umask, :kind_of => [String, Integer], :default => '0002'
+attribute :environment, :kind_of => Hash, :default => {}

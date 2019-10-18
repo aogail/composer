@@ -2,7 +2,7 @@
 # Cookbook Name:: composer
 # Recipe:: install
 #
-# Copyright 2012-2014, Escape Studios
+# Copyright (c) 2016, David Joos
 #
 
 include_recipe node['composer']['php_recipe']
@@ -11,12 +11,12 @@ include_recipe 'git::default'
 if node['platform'] == 'windows'
   windows_package 'Composer - PHP Dependency Manager' do
     source node['composer']['url']
-    options %W(
+    options %w[
       /VERYSILENT
-    ).join(' ')
+    ].join(' ')
   end
 
-  install_dir = "#{node['composer']['install_dir'].gsub('/', '\\')}\\bin"
+  install_dir = "#{node['composer']['install_dir'].tr('/', '\\')}\\bin"
 
   ENV['PATH'] += ";#{install_dir}"
   windows_path install_dir
@@ -26,31 +26,12 @@ else
     not_if "php -m | grep 'Phar'"
   end
 
-  cache_dir = "#{Chef::Config[:file_cache_path]}/composer"
+  file = node['composer']['install_globally'] ? "#{node['composer']['install_dir']}/composer" : "#{node['composer']['install_dir']}/composer.phar"
 
-  directory cache_dir do
-    action :create
-  end
-
-  cache_file = "#{cache_dir}/composer.phar"
-
-  remote_file cache_file do
+  remote_file file do
     source node['composer']['url']
     mode node['composer']['mask']
     action :create
-    not_if do
-      ::File.exist?(cache_file)
-    end
-  end
-
-  if node['composer']['install_globally']
-    file = "#{node['composer']['install_dir']}/composer"
-  else
-    file = "#{node['composer']['install_dir']}/composer.phar"
-  end
-
-  link file do
-    to cache_file
-    action :create
+    not_if { ::File.exist?(file) }
   end
 end

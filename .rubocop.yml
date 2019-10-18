@@ -7,6 +7,9 @@ Encoding:
 LineLength:
   Max: 200
 
+BlockLength:
+  Max: 35
+
 HashSyntax:
   EnforcedStyle: hash_rockets
 
@@ -17,4 +20,7 @@ UselessAssignment:
   Enabled: false
 
 MethodLength:
+  Enabled: false
+
+AbcSize:
   Enabled: false
